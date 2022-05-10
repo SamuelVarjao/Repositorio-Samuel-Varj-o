@@ -1,0 +1,102 @@
+Desfio traga sua força
+1. A.  Se a lista veio vazia, pode caracterizar um erro, ou apenas caracterizar que os filtros inseridos na busca não correspondem a nenhum resultado.
+      - Caso eu tenha acesso ao banco de dados, posso verificar se tem algum dado cadastrado, e ajustar minha pesquisa.
+      - Caso não tenha acesso, poderia fazer teste com outros filtros para verificar se o erro está na massa de dados.
+      - Também consigo ter uma base pelo código de retorno do endpoint (não é uma garantia precisa, mas pode me ajudar)
+
+   B. No caso de uma aplicação da web, uma possibilidade certamente é abrir o inspecionar do navegador e as chamadas e retornos na guia network.
+
+2. A. Executaria uma transferência com os 3 tipos de chave (número de telefone, e-mail e cpf), e também tentaria uma chave inválida para cada uma delas,
+no valor da transferência, tentaria um valor alto, baixo e nulo (0,00), depois, testaria depósito agendado ou não.
+   B. Uma chave valída de uma conta origem e destino existentes e algum valor para transferir (ter uma conta de origem com saldo => que valor do pix)
+   C. O destinatário recebe o valor em sua conta e validar recebimento de notificação (caso não implementado, sugerir ao PO).
+
+Desafio: Validação da tela de login do Facebook
+1. Inserir login e senha válidos e clicar em entrar.
+2. Inserir login válido e senha inválida e clicar em entrar.
+3. Inserir login inválido e clicar em entrar.
+4. Não inserir nada e clicar em entrar.
+5. Clicar em Esqueceu a senha.
+6. Clicar em Criar nova conta.
+7. Digitar uma senha e clicar em entrar.
+8. Inserir login e senha válidos e clicar em entrar sem internet.
+9. Clicar em Esqueceu a senha sem internet.
+10. Clicar em Criar nova conta sem internet.
+11. Inserir login válido e senha inválida e clicar em entrar sem internet.
+
+Desafio: Hello, I want to play a game
+Cenários de teste
+1. Inserir login e senha válidos e clicar em entrar. (OK)
+2. Inserir login válido e senha inválida e clicar em entrar. (Mensagem de erro)
+3. Inserir login inválido e clicar em entrar. (mensagem de erro)
+4. Não inserir nada e clicar em entrar. (mensagem de erro)
+5. Clicar em Esqueceu a senha. (ser direcionado para tela de trocar a senha)
+6. Clicar em Criar nova conta. (ser direcionado para tela de criar nova conta)
+7. Digitar uma senha e clicar em entrar. (mensagem de erro)
+8. Inserir login e senha válidos e clicar em entrar sem internet. (mensagem de erro)
+9. Clicar em Esqueceu a senha sem internet. (mensagem de erro)
+10. Clicar em Criar nova conta sem internet. (mensagem de erro)
+11. Inserir login válido e senha inválida e clicar em entrar sem internet. (mesangem de erro)
+
+12. Validação de tela
+    Given que esteja na tela de login do Facebook
+    When o sistema carregar as informações
+    Then deve ver o logotipo do "Facebook"
+    And deve ver a mensagem: "O Facebook deseja compartilhar e bla bla bla"
+    And deve ver as caixa de digitar: "Email ou telefone" e "Senha"
+    And deve ver o link "Esqueceu a Senha?"
+    And deve ver os botões "Entrar" e "Criar conta"
+    And deve ver a mensagem "Criar uma página para uma celebridade(...)"
+
+Desafio: Hello, I want to play a game
+Cenários de teste
+1.
+Given que deseja enviar uma mensagem.
+And preenche todos os campos obrigatórios.
+When faço a requisição para POST /7eb984w4j4.execute-api.us-east-1.amazonaws.com/dev/lambdastresstest 
+Then receber um retorno status code 200
+And receber a mensagem "Mensagem enviada com sucesso"
+
+2.
+Given que deseja enviar uma mensagem.
+And preenche mais de 11 dígitos.
+When faço a requisição para POST /7eb984w4j4.execute-api.us-east-1.amazonaws.com/dev/lambdastresstest
+Then receber um retorno status code 400
+And receber a mensagem "Mensagem enviada com sucesso"
+
+Cenário OK
+3.
+Given que deseja enviar uma mensagem.
+When preenche menos de 11 dígitos.
+Then recebe um retorno dizendo número de destinatário inválido.
+4.
+Given que deseja enviar uma mensagem.
+When digíta mais de 100 carácteres na mensagem.
+Then recebe um retorno dizendo que o limite de carácteres foi excedido.
+5.
+Given que deseja enviar uma mensagem.
+When não preenche o campo: número do destinatário.
+Then recebe um retorno dizendo que o campo: número do destinatário é obrigatório.
+6.
+Given que deseja enviar uma mensagem.
+When não preenche o campo: mensagem.
+Then recebe um retorno dizendo que o campo: mensagem é obrigatório.
+7.
+Given que deseja enviar uma mensagem.
+When não preenche os campos: mensagem e número do destinatário.
+Then recebe um retorno dizendo que os campo: os campos mensagem e número do destinatário são obrigatórios.
+8.
+Given que deseja enviar uma mensagem.
+When o destinatário já recebeu uma mensagem no mês.
+Then recebe um retorno dizendo que o número máximo de mensagens para tal destinatário foi excedido.
+9.
+Given que deseja enviar uma mensagem.
+When digita caracteries no campo número do destinatário.
+Then recebe um retorno dizenro que o campo número de destinatário está em formato inválido
+
+
+Sugestões:
+
+Todos os cenários de erro (400), retornaram com status 200, corrigir status de retorno para 400
+
+
